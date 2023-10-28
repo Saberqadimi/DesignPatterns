@@ -36,10 +36,17 @@ Route::prefix('design-patterns')->group(function () {
 
     //Adapter
     Route::get('/adapter', function () {
-//        $gateway = new PaymentGatewayAdapter("payStar");
+        //$gateway = new PaymentGatewayAdapter("payStar");
         $gateway = new PaymentGatewayAdapter("zarinpal");
         return ['AdapterPatter' => $gateway->processPayment(26000)];
     });
+
+    //Singleton
+   Route::controller(\App\Http\Controllers\CartController::class)->prefix('singleton')->group(function (){
+      Route::get('/add' , 'addToCart');  //design-patterns/singleton/add?product_id=6&quantity=5
+      Route::get('/remove' , 'removeFromCart');  //design-patterns/singleton/remove?product_id=6
+      Route::get('/show' , 'showCart');
+   });
 
 
 });
